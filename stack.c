@@ -41,6 +41,8 @@ void display(){
 int main(){
     int choice;
 
+
+
     while(1){
         printf("\n0 For Exit\n1 For Push\n2 For pop\n3 For Display");
         printf("\nEnter Choice");
