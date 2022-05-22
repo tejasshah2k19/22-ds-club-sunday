@@ -30,7 +30,8 @@ int main(){
                 found = 1;
                 printf("%d found ",search);
                 break;
-            }else if( a[mid] > search ){
+            }else
+            if( a[mid] > search ){
                 max = mid -1 ;
 
             }else{
