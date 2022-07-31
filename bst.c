@@ -33,7 +33,37 @@ struct node* addNode(struct node *node,int num){//[10],35  [30],35  NULL,35
       }
 
  	}
+void inOrder(struct node *root){
 
+    if(root==NULL){
+        return;
+    }
+    inOrder(root->left);
+    printf("%d ",root->data);
+    inOrder(root->right);
+}
+
+
+void preOrder(struct node *root){
+
+    if(root==NULL){
+        return;
+    }
+    printf("%d ",root->data);
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void postOrder(struct node *root){
+
+    if(root==NULL){
+        return;
+    }
+    postOrder(root->left);
+    postOrder(root->right);
+    printf("%d ",root->data);
+
+}
 int main()
 {
 
@@ -45,6 +75,15 @@ int main()
     addNode(root,25);
     addNode(root,100);
 
-    printf("%d %d %d %d %d %d",root->data,root->left->data,root->right->data,root->right->right->data,root->right->left->data,root->right->right->right->data);
+    printf("\nInorder\n");
+    inOrder(root);
+  //  printf("%d %d %d %d %d %d",root->data,root->left->data,root->right->data,root->right->right->data,root->right->left->data,root->right->right->right->data);
+    printf("\nPreOrder\n");
+    preOrder(root);
+
+    printf("\nPostOrder\n");
+    postOrder(root);
+
+
     return 0;
 }
