@@ -30,8 +30,58 @@ int calculateHeight(struct node *root){
 
     return lh > rh ? lh+1:rh+1;
 }
+
+int calculateBalanceFactor(struct node *root){
+    int lh=0,rh=0;
+    //bf = lh - rh
+    if(root == NULL)
+        return 0;
+
+    if(root->left != NULL){
+        lh = root->left->height;
+    }
+
+    if(root->right != NULL){
+        rh = root->right->height;
+    }
+
+    return lh - rh;
+}
+
+struct node* leftRotate(struct node *root){//10
+    struct node *rootright,*rootrightleft;
+
+    rootright = root->right;//20
+    rootrightleft = rootright->left;//null
+
+
+    rootright->left = root;
+    root->right = rootrightleft;
+
+
+    root->height = calculateHeight(root);
+    rootright->height = calculateHeight(rootright);
+
+    return rootright;
+}
+
+struct node* rightRotate(struct node *root){ //30
+    struct node *rootleft,*rootleftright;
+
+    rootleft = root->left;//20
+    rootleftright = rootleft->right; //25 | NULL
+
+    rootleft->right = root;
+    root->left = rootleftright;
+
+    root->height = calculateHeight(root);
+    rootleft ->height = calculateHeight(rootleft);
+
+    return rootleft;
+}
+
 struct node* addNode(int num,struct node *root){//35,50
-        int height;
+        int height,bf;
         if(root==NULL){
            root = createNode(num);//30
            return root;
@@ -46,6 +96,32 @@ struct node* addNode(int num,struct node *root){//35,50
         }
         height = calculateHeight(root);
         root->height = height;
+
+        bf = calculateBalanceFactor(root);
+
+        if(bf > 1){
+
+            if(root->left->data < num) {
+                    printf("\nLR for %d ",root->data);
+                    root->left = leftRotate(root->left);
+                    return rightRotate(root);
+
+            }else{
+                    printf("\nLL for %d ",root->data);
+                    return rightRotate(root);
+            }
+         }else if(bf < -1){
+             if(root->right->data > num  ){
+                    printf("\nRL for %d(%d) ",root->data,bf);
+                    root->right =  rightRotate(root->right);
+                    return leftRotate(root);
+             }else{
+                    printf("\nRR for %d ",root->data);
+                    return leftRotate(root);
+             }
+        }
+
+
         return root;
 }
 
@@ -130,6 +206,32 @@ struct node* deleteNode(struct node* root,int key){// (50,35) => (35,35)
 
 int main(){
     int i=1;
+/*
+    for(i=1;i<=7;i++){
+        root = addNode(i,root);//1 2 3 4 5 6 7
+    }
+*/
+
+    root = addNode(30,root);
+    root = addNode(10,root);
+    root = addNode(20,root);
+
+    printf("\nTREE\n");
+    inOrder(root);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*    root = addNode(50,root);//NULL
            addNode(100,root);//50
@@ -139,14 +241,15 @@ int main(){
             addNode(150,root);
             addNode(250,root);
 */
-        root=addNode(50,root);
+
+  /*      root=addNode(50,root);
             addNode(35,root);
             addNode(25,root);
             addNode(40,root);
             addNode(100,root);
             addNode(80,root);
             addNode(150,root);
-
+*/
 
 
             //1 for add
@@ -161,8 +264,8 @@ int main(){
     printf("\n%d ",root->right->right->data);//150
     printf("\n%d ",root->right->right->right->data);//250
     */
-    printf("\nIn Order\n");
-    inOrder(root);
+ //   printf("\nIn Order\n");
+  //  inOrder(root);
    // printf("\nPre Order\n");
    // preOrder(root);
    // printf("\nPost Order\n");
