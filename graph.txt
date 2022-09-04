@@ -1,0 +1,19 @@
+Graph -> 
+
+1) non linearn ds 
+2) collection of vertices and edges 
+
+G(V,E) 
+G(V) = {A,M,B,Bo,V}
+G(E)={ (A,B),(A,M),(A,V), (M,Bo),(B,Bo),(B,V),(V,Bo) }
+
+
+
+1) directed graph | diagraph -> edges has a direction 
+2) undirected graph -> edges does not have any direction 
+3) NullGraph -> graph does not have any edges 
+4) connected graph -> each vertex is connected with atleast 1 vertex
+ 			graph doest not has isolated vertex 
+
+5) complete graph -> each vertext is connected with every vertex 
+ 
