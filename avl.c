@@ -164,6 +164,7 @@ struct node* findMinValueNode(struct node *root){
 
 struct node* deleteNode(struct node* root,int key){// (50,35) => (35,35)
     struct node* tmp = NULL;
+    int height,bf;
     if(root==NULL){
         return root;
     }
@@ -196,7 +197,41 @@ struct node* deleteNode(struct node* root,int key){// (50,35) => (35,35)
             root->data = tmp->data;
             root->right = deleteNode(root->right,tmp->data);
         }
+
+        //
     }
+        height = calculateHeight(root);
+        root->height = height;
+
+        bf = calculateBalanceFactor(root);//-2
+
+        if(bf > 1){//2
+            //LEFT
+             //if(getBf(root->LEFT) >= 0 ) LL
+
+            if(root->left->left != NULL) {
+                    printf("\nLL for %d ",root->data);
+                    return rightRotate(root);
+            }else{
+                    printf("\nLR for %d ",root->data);
+                    root->left = leftRotate(root->left);
+                    return rightRotate(root);
+            }
+         }else if(bf < -1){//-2
+             //RIGHT
+             if(root->right->right != NULL  ){
+                    printf("\nRR for %d ",root->data);
+                    return leftRotate(root);
+
+             }else{
+                    printf("\nRL for %d(%d) ",root->data,bf);
+                    root->right =  rightRotate(root->right);
+                    return leftRotate(root);
+
+            }
+        }
+
+
     return root;
 }
 
