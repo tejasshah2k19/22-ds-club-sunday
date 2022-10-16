@@ -16,7 +16,7 @@ struct edge{
     int i,j,s,d,c;
     struct vertex *vertices;
     struct edge *edges;
-
+    int x=0;
 void init(){
     printf("\nEnter total vertices");
     scanf("%d",&totalVertices); // 6
@@ -61,13 +61,38 @@ void travel(){
         }
     }
 }
+
+void addEdges(int s,int d,int c){
+    edges[x].src = s;
+    edges[x].dest= d;
+    edges[x].cost = c;
+    x++;
+    edges[x].src = d;
+    edges[x].dest= s;
+    edges[x].cost = c;
+    x++;
+}
 int main(){
 
 
     init();
     getVertices();
-    getEdges();
+    //getEdges();
+
+    addEdges(10,20,13);
+    addEdges(20,30,10);
+    addEdges(30,7,8);
+    addEdges(7,9,6);
+    addEdges(9,10,11);
+    addEdges(10,5,7);
+    addEdges(5,30,10);
+
+
     travel();
+
+    //printEdges();
+    //sortEdges()
+    //printEdges();
 
     return 0;
 
